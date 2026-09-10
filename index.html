@@ -8,10 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #020617;
-            --bg-card: rgba(15, 23, 42, 0.85);
-            --glow-color: #38bdf8;
-            --glow-shadow: rgba(56, 189, 248, 0.3);
+            --bg-base: #18021d;
+            --bg-card: rgba(28, 10, 36, 0.85);
+            --glow-color: #ec4899;
+            --glow-shadow: rgba(236, 72, 153, 0.35);
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -20,153 +20,189 @@
             font-size: 11px;
         }
         .mono { font-family: 'JetBrains Mono', monospace; }
-        
-        /* Menu dibungkus tepi tipis tegas warna biru muda (glowing) */
         .glow-box {
             border: 1px solid var(--glow-color);
-            box-shadow: 0 0 10px var(--glow-shadow), inset 0 0 4px var(--glow-shadow);
+            box-shadow: 0 0 12px var(--glow-shadow), inset 0 0 4px var(--glow-shadow);
             background-color: var(--bg-card);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
         }
-        
         .custom-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
         .custom-scroll::-webkit-scrollbar-track { background: transparent; }
         .custom-scroll::-webkit-scrollbar-thumb { background: var(--glow-color); border-radius: 2px; }
-        
         input, select, button, textarea { font-size: 11px !important; }
     </style>
 </head>
 <body class="h-screen overflow-hidden flex flex-col p-2 md:p-3 gap-2">
 
-    <!-- Header Compact & Elegan -->
+    <!-- Header -->
     <header class="glow-box rounded-lg p-2.5 flex items-center justify-between shrink-0">
         <div class="flex items-center space-x-2.5">
-            <div class="w-7 h-7 rounded flex items-center justify-center font-bold text-sm border border-sky-400 shadow-[0_0_6px_#38bdf8]">
-                ⚡
-            </div>
+            <div id="headerLogo" class="w-7 h-7 rounded flex items-center justify-center font-bold text-sm border border-pink-400 shadow-[0_0_8px_#ec4899]">⚡</div>
             <div>
-                <h1 class="font-bold text-xs tracking-wide text-sky-400">GEMA MUSIC OMNI-V20</h1>
-                <p class="text-[9px] text-gray-400 uppercase">Enterprise Cloud Scanner & R2 Engine</p>
+                <h1 id="headerTitle" class="font-bold text-xs tracking-wide text-pink-400">GEMA MUSIC OMNI-V20</h1>
+                <p class="text-[9px] text-gray-400 uppercase">Enterprise 50K GitHub Direct Raw Engine</p>
             </div>
         </div>
-
         <div class="flex items-center space-x-2">
-            <span class="text-[10px] text-sky-300 font-medium hidden sm:inline">Theme:</span>
-            <select id="themeSelect" onchange="changeTheme(this.value)" class="bg-gray-950 border border-sky-400/60 rounded px-2 py-1 text-sky-300 font-medium focus:outline-none glow-box">
-                <option value="0">1. Cyber Blue</option><option value="1">2. Deep Obsidian</option>
-                <option value="2">3. Matrix Emerald</option><option value="3">4. Quantum Purple</option>
-                <option value="4">5. Solar Flare</option><option value="5">6. Ruby Crimson</option>
-                <option value="6">7. Arctic Frost</option><option value="7">8. Midnight Indigo</option>
-                <option value="8">9. Neon Magenta</option><option value="9">10. Carbon Gold</option>
-                <option value="10">11. Plasma Orange</option><option value="11">12. Holographic Teal</option>
-                <option value="12">13. Slate Minimal</option><option value="13">14. Cyberpunk Yellow</option>
-                <option value="14">15. Zenith Violet</option><option value="15">16. Toxic Lime</option>
-                <option value="16">17. Neptune Cyan</option><option value="17">18. Velvet Rose</option>
-                <option value="18">19. Titanium Gray</option><option value="19">20. Phantom Black</option>
+            <span class="text-[10px] text-pink-300 font-medium hidden sm:inline">Theme (30):</span>
+            <select id="themeSelect" onchange="changeTheme(this.value)" class="bg-gray-950 border border-pink-400/60 rounded px-2 py-1 text-pink-300 font-medium focus:outline-none glow-box">
+                <option value="0" selected>1. Neon Magenta (Default)</option>
+                <option value="1">2. Cyber Blue</option><option value="2">3. Deep Obsidian</option>
+                <option value="3">4. Matrix Emerald</option><option value="4">5. Quantum Purple</option>
+                <option value="5">6. Solar Flare</option><option value="6">7. Ruby Crimson</option>
+                <option value="7">8. Arctic Frost</option><option value="8">9. Midnight Indigo</option>
+                <option value="9">10. Carbon Gold</option><option value="10">11. Plasma Orange</option>
+                <option value="11">12. Holographic Teal</option><option value="12">13. Slate Minimal</option>
+                <option value="13">14. Cyberpunk Yellow</option><option value="14">15. Zenith Violet</option>
+                <option value="15">16. Toxic Lime</option><option value="16">17. Neptune Cyan</option>
+                <option value="17">18. Velvet Rose</option><option value="18">19. Titanium Gray</option>
+                <option value="19">20. Phantom Black</option><option value="20">21. Royal Amethyst</option>
+                <option value="21">22. Emerald Sunset</option><option value="22">23. Copper Horizon</option>
+                <option value="23">24. Obsidian Sapphire</option><option value="24">25. Neon Tangerine</option>
+                <option value="25">26. Mystic Lavender</option><option value="26">27. Electric Cobalt</option>
+                <option value="27">28. Solar Amber</option><option value="28">29. Cyberpunk Crimson</option>
+                <option value="29">30. Arctic Aurora</option>
             </select>
         </div>
     </header>
 
-    <!-- Workspace Utama (Non-Overflow Grid) -->
+    <!-- Workspace Utama -->
     <main class="grid grid-cols-1 lg:grid-cols-12 gap-2.5 flex-1 min-h-0">
         
-        <!-- Panel Kontrol & Addons (Kiri) -->
+        <!-- Panel Kontrol Kiri -->
         <section class="lg:col-span-4 glow-box p-3 rounded-lg flex flex-col gap-2.5 overflow-y-auto custom-script">
             
-            <!-- Addon & Plugin Status Bar -->
-            <div class="flex flex-wrap gap-1 pb-2 border-b border-sky-500/30">
-                <span class="text-[9px] px-1.5 py-0.5 rounded bg-black/40 border border-sky-400/40 text-sky-300">⚙️ H265/AV1 Codec</span>
-                <span class="text-[9px] px-1.5 py-0.5 rounded bg-black/40 border border-sky-400/40 text-sky-300">🔌 CORS Injector</span>
-                <span class="text-[9px] px-1.5 py-0.5 rounded bg-black/40 border border-sky-400/40 text-sky-300">🛡️ Geo-Bypass</span>
-                <span class="text-[9px] px-1.5 py-0.5 rounded bg-black/40 border border-sky-400/40 text-sky-300">🔞 18+ Unlocked</span>
-                <span class="text-[9px] px-1.5 py-0.5 rounded bg-black/40 border border-sky-400/40 text-sky-300">🧩 M3U Parser</span>
+            <div class="flex flex-wrap gap-1 pb-2 border-b border-pink-500/30">
+                <span class="text-[9px] px-1.5 py-0.5 rounded bg-black/40 border border-pink-400/40 text-pink-300">🛡️ Filter News/Religi/Docu</span>
+                <span class="text-[9px] px-1.5 py-0.5 rounded bg-black/40 border border-pink-400/40 text-pink-300">🔞 18+ Unlocked</span>
+                <span class="text-[9px] px-1.5 py-0.5 rounded bg-black/40 border border-pink-400/40 text-pink-300">☁️ Direct GitHub Raw</span>
             </div>
 
-            <!-- Auto Scanner Global -->
+            <!-- 1. Auto Keyword Scanner -->
             <div>
-                <h2 class="text-[10px] font-bold uppercase tracking-wider mb-1.5 text-sky-400">1. Global Omni-Scanner (Bebas Blokir & 18+)</h2>
-                <button onclick="startAutoScanner()" id="btnScan" class="w-full py-2 bg-gray-950 border border-sky-400 rounded hover:bg-sky-900/40 text-sky-300 font-bold transition flex items-center justify-center gap-1.5 shadow-[0_0_8px_rgba(56,189,248,0.2)]">
-                    <span>🚀</span> JALANKAN AUTO-SCANNER GLOBAL
+                <h2 class="text-[10px] font-bold uppercase tracking-wider mb-1.5 text-pink-400">1. Auto Scan Berdasarkan Kata Kunci</h2>
+                <div class="flex gap-1.5">
+                    <input type="text" id="keywordInput" placeholder="Cth: rock, sport, movie, adult, music..." class="w-full bg-black/50 border border-pink-500/40 rounded p-1.5 focus:outline-none text-gray-200">
+                    <button onclick="startKeywordScanner()" id="btnKeywordScan" class="px-3 py-1.5 bg-gray-950 border border-pink-400 rounded hover:bg-pink-900/40 text-pink-300 font-bold transition whitespace-nowrap shadow-[0_0_6px_rgba(236,72,153,0.3)]">
+                        Cari
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. Global Omni-Scanner & Gist Sync -->
+            <div>
+                <h2 class="text-[10px] font-bold uppercase tracking-wider mb-1.5 text-pink-400">2. Global Omni-Scanner & Permanent Gist</h2>
+                <button onclick="startAutoScannerWithGist()" id="btnScan" class="w-full py-2 bg-gray-950 border border-pink-400 rounded hover:bg-pink-900/40 text-pink-300 font-bold transition flex items-center justify-center gap-1.5 shadow-[0_0_8px_rgba(236,72,153,0.3)]">
+                    <span>🚀</span> JALANKAN GLOBAL SCANNER + GIST
                 </button>
             </div>
 
-            <!-- Cloudflare R2 Sync -->
+            <!-- 3. Input File Lokal -->
             <div>
-                <h2 class="text-[10px] font-bold uppercase tracking-wider mb-1.5 text-sky-400">2. Cloudflare R2 Database Sync</h2>
+                <h2 class="text-[10px] font-bold uppercase tracking-wider mb-1.5 text-pink-400">3. Input Playlist Perangkat Lokal (.m3u)</h2>
+                <input type="file" id="localFile" accept=".m3u,.m3u8" onchange="importLocalFile(event)" class="w-full bg-black/50 border border-pink-500/40 rounded p-1 text-[10px] text-gray-300 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-bold file:bg-pink-950 file:text-pink-300 hover:file:bg-pink-900">
+            </div>
+
+            <!-- 4. Direct GitHub Raw Sync Config -->
+            <div>
+                <h2 class="text-[10px] font-bold uppercase tracking-wider mb-1.5 text-pink-400">4. Simpan Otomatis ke GitHub (Raw Link)</h2>
                 <div class="space-y-1.5">
-                    <input type="text" id="r2Url" placeholder="R2 Worker Endpoint (https://...)" class="w-full bg-black/50 border border-sky-500/40 rounded p-1.5 focus:outline-none text-gray-200">
-                    <input type="password" id="r2Token" placeholder="R2 Auth Token / Bearer Key" class="w-full bg-black/50 border border-sky-500/40 rounded p-1.5 focus:outline-none text-gray-200">
+                    <input type="text" id="ghToken" placeholder="GitHub Personal Access Token (PAT)" class="w-full bg-black/50 border border-pink-500/40 rounded p-1.5 focus:outline-none text-gray-200">
+                    <input type="text" id="ghPath" value="master.m3u" placeholder="Nama File (cth: master.m3u)" class="w-full bg-black/50 border border-pink-500/40 rounded p-1.5 focus:outline-none text-gray-200">
+                    <button onclick="saveDirectToGitHub()" class="w-full py-1.5 bg-pink-950/60 border border-pink-400 rounded hover:bg-pink-900/50 text-pink-300 font-bold transition flex items-center justify-center gap-1">
+                        <span>☁️</span> Simpan & Buat Link Raw GitHub
+                    </button>
                 </div>
             </div>
 
             <!-- Log Console -->
-            <div class="bg-black/50 border border-sky-500/30 rounded p-2 mt-auto flex flex-col">
-                <div class="flex justify-between text-[9px] font-bold mb-1 text-sky-400">
+            <div class="bg-black/50 border border-pink-500/30 rounded p-2 mt-auto flex flex-col">
+                <div class="flex justify-between text-[9px] font-bold mb-1 text-pink-400">
                     <span id="scanStatus">System Ready</span>
                     <span id="scanPct">0%</span>
                 </div>
                 <div class="w-full bg-gray-900 h-1 rounded-full overflow-hidden mb-1">
-                    <div id="scanBar" class="h-full w-0 transition-all bg-sky-400"></div>
+                    <div id="scanBar" class="h-full w-0 transition-all bg-pink-500"></div>
                 </div>
                 <div id="sysLog" class="h-16 overflow-y-auto text-[8px] mono text-gray-400 custom-scroll space-y-0.5">
-                    [Init] Ready for global unrestricted scan...
+                    [Init] Ready for GitHub API direct raw sync...
                 </div>
             </div>
         </section>
 
-        <!-- Panel Database & Smart Checker (Kanan) -->
+        <!-- Panel Database Kanan -->
         <section class="lg:col-span-8 glow-box p-3 rounded-lg flex flex-col min-h-0">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2.5 pb-2 border-b border-sky-500/30 gap-2 shrink-0">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2.5 pb-2 border-b border-pink-500/30 gap-2 shrink-0">
                 <div>
-                    <h2 class="text-[10px] font-bold uppercase tracking-wider text-sky-400">Master Database Viewer</h2>
-                    <p class="text-[9px] text-gray-400">Total: <span id="valTotal" class="text-sky-300 font-bold">0</span> | Aktif: <span id="valLive" class="text-emerald-400 font-bold">0</span> | Mati: <span id="valDead" class="text-red-400 font-bold">0</span></p>
+                    <h2 class="text-[10px] font-bold uppercase tracking-wider text-pink-400">Master Database Viewer (Max 50K)</h2>
+                    <p class="text-[9px] text-gray-400">Total: <span id="valTotal" class="text-pink-300 font-bold">0</span> | Aktif: <span id="valLive" class="text-emerald-400 font-bold">0</span> | Mati: <span id="valDead" class="text-red-400 font-bold">0</span></p>
                 </div>
 
                 <!-- Action Toolbar -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 w-full sm:w-auto">
-                    <button onclick="removeDuplicates()" class="py-1 px-2.5 bg-gray-950 border border-sky-500/40 hover:bg-sky-900/40 text-sky-300 rounded font-bold transition">
-                        🧹 Hapus Duplikat
-                    </button>
-                    <button onclick="startAutoChecker()" id="btnCheck" class="py-1 px-2.5 bg-gray-950 border border-sky-500/40 hover:bg-sky-900/40 text-sky-300 rounded font-bold transition">
-                        ⚡ Auto-Checker
-                    </button>
-                    <button onclick="syncToDatabase()" class="py-1 px-2.5 bg-gray-950 border border-sky-500/40 hover:bg-sky-900/40 text-sky-300 rounded font-bold transition">
-                        ☁️ Simpan R2
-                    </button>
-                    <button onclick="downloadActive()" class="py-1 px-2.5 bg-emerald-950/40 border border-emerald-500/40 hover:bg-emerald-900/50 text-emerald-400 rounded font-bold transition">
-                        💾 Download Aktif
-                    </button>
+                    <button onclick="removeDuplicates()" class="py-1 px-2.5 bg-gray-950 border border-pink-500/40 hover:bg-pink-900/40 text-pink-300 rounded font-bold transition">🧹 Hapus Duplikat</button>
+                    <button onclick="startAutoChecker()" id="btnCheck" class="py-1 px-2.5 bg-gray-950 border border-pink-500/40 hover:bg-pink-900/40 text-pink-300 rounded font-bold transition">⚡ High-Acc Checker</button>
+                    <button onclick="deleteAllChannels()" class="py-1 px-2.5 bg-red-950/40 border border-red-500/40 hover:bg-red-900/50 text-red-400 rounded font-bold transition">🗑️ Hapus Semua</button>
+                    <button onclick="downloadActive()" class="py-1 px-2.5 bg-emerald-950/40 border border-emerald-500/40 hover:bg-emerald-900/50 text-emerald-400 rounded font-bold transition">💾 Download M3U</button>
                 </div>
             </div>
 
             <!-- Textarea Output -->
-            <textarea id="outputDB" readonly class="w-full flex-1 bg-black/50 border border-sky-500/30 rounded p-2.5 text-[10px] text-sky-200 focus:outline-none custom-scroll resize-none mono leading-relaxed" placeholder="#EXTM3U\n\nDatabase saluran aktif & 18+ akan tampil di sini..."></textarea>
+            <textarea id="outputDB" readonly class="w-full flex-1 bg-black/50 border border-pink-500/30 rounded p-2.5 text-[10px] text-pink-200 focus:outline-none custom-scroll resize-none mono leading-relaxed" placeholder="#EXTM3U\n\nDatabase 50K channel bersih akan tampil di sini..."></textarea>
         </section>
     </main>
 
     <script>
-        // 20 Professional Themes Mapping
         const themes = [
-            { bg: '#020617', card: 'rgba(15, 23, 42, 0.85)' }, { bg: '#000000', card: 'rgba(9, 9, 11, 0.85)' },
-            { bg: '#022c22', card: 'rgba(6, 78, 59, 0.85)' },  { bg: '#2e1065', card: 'rgba(59, 13, 104, 0.85)' },
-            { bg: '#451a03', card: 'rgba(113, 63, 18, 0.85)' }, { bg: '#4c0519', card: 'rgba(136, 19, 55, 0.85)' },
-            { bg: '#0f172a', card: 'rgba(30, 41, 59, 0.85)' },  { bg: '#172554', card: 'rgba(30, 58, 138, 0.85)' },
-            { bg: '#2b0022', card: 'rgba(74, 4, 78, 0.85)' },   { bg: '#171717', card: 'rgba(38, 38, 38, 0.85)' },
-            { bg: '#431407', card: 'rgba(124, 45, 18, 0.85)' }, { bg: '#042f2e', card: 'rgba(19, 78, 74, 0.85)' },
-            { bg: '#0f172a', card: 'rgba(15, 23, 42, 0.85)' },  { bg: '#292524', card: 'rgba(68, 64, 60, 0.85)' },
-            { bg: '#1e1b4b', card: 'rgba(49, 46, 129, 0.85)' }, { bg: '#1a2e05', card: 'rgba(63, 98, 18, 0.85)' },
-            { bg: '#083344', card: 'rgba(22, 78, 99, 0.85)' },  { bg: '#270817', card: 'rgba(76, 5, 25, 0.85)' },
-            { bg: '#111827', card: 'rgba(31, 41, 55, 0.85)' },  { bg: '#050505', card: 'rgba(10, 10, 10, 0.9)' }
+            { bg: '#18021d', card: 'rgba(28, 10, 36, 0.85)', glow: '#ec4899', shadow: 'rgba(236, 72, 153, 0.35)' },
+            { bg: '#020617', card: 'rgba(15, 23, 42, 0.85)', glow: '#38bdf8', shadow: 'rgba(56, 189, 248, 0.3)' },
+            { bg: '#000000', card: 'rgba(12, 12, 14, 0.9)', glow: '#71717a', shadow: 'rgba(113, 113, 122, 0.3)' },
+            { bg: '#022c22', card: 'rgba(6, 78, 59, 0.85)', glow: '#34d399', shadow: 'rgba(52, 211, 153, 0.3)' },
+            { bg: '#2e1065', card: 'rgba(59, 13, 104, 0.85)', glow: '#c084fc', shadow: 'rgba(192, 132, 252, 0.3)' },
+            { bg: '#451a03', card: 'rgba(113, 63, 18, 0.85)', glow: '#fb923c', shadow: 'rgba(251, 146, 60, 0.3)' },
+            { bg: '#4c0519', card: 'rgba(136, 19, 55, 0.85)', glow: '#fb7185', shadow: 'rgba(251, 113, 133, 0.3)' },
+            { bg: '#082f49', card: 'rgba(12, 74, 110, 0.85)', glow: '#7dd3fc', shadow: 'rgba(125, 211, 252, 0.3)' },
+            { bg: '#0f172a', card: 'rgba(30, 41, 59, 0.85)', glow: '#818cf8', shadow: 'rgba(129, 140, 248, 0.3)' },
+            { bg: '#1c1917', card: 'rgba(41, 37, 36, 0.85)', glow: '#facc15', shadow: 'rgba(250, 204, 21, 0.3)' },
+            { bg: '#431407', card: 'rgba(124, 45, 18, 0.85)', glow: '#fdba74', shadow: 'rgba(253, 186, 116, 0.3)' },
+            { bg: '#042f2e', card: 'rgba(19, 78, 74, 0.85)', glow: '#2dd4bf', shadow: 'rgba(45, 212, 191, 0.3)' },
+            { bg: '#18181b', card: 'rgba(39, 39, 42, 0.85)', glow: '#a1a1aa', shadow: 'rgba(161, 161, 170, 0.3)' },
+            { bg: '#1a1800', card: 'rgba(42, 38, 0, 0.85)', glow: '#fde047', shadow: 'rgba(253, 224, 71, 0.3)' },
+            { bg: '#2e1065', card: 'rgba(46, 16, 101, 0.85)', glow: '#e879f9', shadow: 'rgba(232, 121, 249, 0.3)' },
+            { bg: '#132e05', card: 'rgba(39, 78, 19, 0.85)', glow: '#a3e635', shadow: 'rgba(163, 230, 53, 0.3)' },
+            { bg: '#083344', card: 'rgba(22, 78, 99, 0.85)', glow: '#22d3ee', shadow: 'rgba(34, 211, 238, 0.3)' },
+            { bg: '#3f0f1d', card: 'rgba(76, 5, 25, 0.85)', glow: '#fda4af', shadow: 'rgba(253, 164, 175, 0.3)' },
+            { bg: '#1f2937', card: 'rgba(55, 65, 81, 0.85)', glow: '#9ca3af', shadow: 'rgba(156, 163, 175, 0.3)' },
+            { bg: '#030303', card: 'rgba(10, 10, 10, 0.9)', glow: '#525252', shadow: 'rgba(82, 82, 82, 0.3)' },
+            { bg: '#2e0854', card: 'rgba(69, 10, 110, 0.85)', glow: '#d8b4fe', shadow: 'rgba(216, 180, 254, 0.3)' },
+            { bg: '#064e3b', card: 'rgba(4, 120, 87, 0.85)', glow: '#6ee7b7', shadow: 'rgba(110, 231, 183, 0.3)' },
+            { bg: '#451a03', card: 'rgba(124, 45, 18, 0.85)', glow: '#fed7aa', shadow: 'rgba(254, 215, 170, 0.3)' },
+            { bg: '#0c4a6e', card: 'rgba(3, 105, 161, 0.85)', glow: '#bae6fd', shadow: 'rgba(186, 230, 253, 0.3)' },
+            { bg: '#431407', card: 'rgba(154, 52, 18, 0.85)', glow: '#ffedd5', shadow: 'rgba(255, 237, 213, 0.3)' },
+            { bg: '#2b1055', card: 'rgba(76, 29, 149, 0.85)', glow: '#f0abfc', shadow: 'rgba(240, 171, 252, 0.3)' },
+            { bg: '#0c2340', card: 'rgba(17, 34, 64, 0.85)', glow: '#60a5fa', shadow: 'rgba(96, 165, 250, 0.3)' },
+            { bg: '#3a1700', card: 'rgba(120, 53, 15, 0.85)', glow: '#fef08a', shadow: 'rgba(254, 240, 138, 0.3)' },
+            { bg: '#500724', card: 'rgba(131, 24, 68, 0.85)', glow: '#f43f5e', shadow: 'rgba(244, 63, 94, 0.3)' },
+            { bg: '#022330', card: 'rgba(8, 51, 68, 0.85)', glow: '#38bdf8', shadow: 'rgba(56, 189, 248, 0.3)' }
         ];
 
         function changeTheme(index) {
             const t = themes[index];
             document.documentElement.style.setProperty('--bg-base', t.bg);
             document.documentElement.style.setProperty('--bg-card', t.card);
+            document.documentElement.style.setProperty('--glow-color', t.glow);
+            document.documentElement.style.setProperty('--glow-shadow', t.shadow);
+            
+            const logo = document.getElementById('headerLogo');
+            const title = document.getElementById('headerTitle');
+            logo.style.borderColor = t.glow;
+            logo.style.boxShadow = `0 0 8px ${t.glow}`;
+            title.style.color = t.glow;
         }
 
         let dbAll = [];
         let isRunning = false;
+        const GIST_URL = "https://gist.githubusercontent.com/uci73/52a5c4a4489565b38dbe0344c6bd76de/raw/ccf5baf89d8a34d11ebde87c999bfe387e99c4ca/gistfile1.txt";
 
         function logSys(msg) {
             const el = document.getElementById('sysLog');
@@ -180,7 +216,6 @@
             document.getElementById('scanStatus').innerText = status;
             document.getElementById('scanPct').innerText = `${pct}%`;
             document.getElementById('scanBar').style.width = `${pct}%`;
-            
             const live = dbAll.filter(c => c.isLive !== false).length;
             const dead = dbAll.filter(c => c.isLive === false).length;
             document.getElementById('valTotal').innerText = dbAll.length;
@@ -194,76 +229,150 @@
             document.getElementById('outputDB').value = out;
         }
 
-        // Robust Multi-Proxy Fetcher to bypass CORS and network errors completely
-        async function fetchRobust(targetUrl) {
-            const proxies = [
-                `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-                `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`,
-                `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`
+        // Filter ketat: Membuang News, Business, Religious, Documentary, Culture
+        function isUnwantedChannel(extinf) {
+            const lower = extinf.toLowerCase();
+            const unwanted = [
+                'news', 'berita', 'cnn', 'bbc news', 'fox news', 'msnbc', 'cnbc', 'skynews', 'al jazeera', 'rt news',
+                'business', 'bisnis', 'finance', 'market', 'stock', 'bloomberg', 'wall street', 'economy', 'trading',
+                'religi', 'agama', 'islam', 'muslim', 'quran', 'masjid', 'church', 'kristen', 'katolik', 'buddha', 'hindu', 'vatican', 'gospel', 'prayer', 'preach', 'bible', 'alquran', 'taqwa', 'dakwah',
+                'documentary', 'dokumenter', 'docu', 'history channel', 'discovery', 'nat geo', 'national geographic', 'animal planet', 'science channel',
+                'culture', 'budaya', 'tradisi', 'heritage', 'folklore'
             ];
-            for (let p of proxies) {
-                try {
-                    const res = await fetch(p);
-                    if (res.ok) {
-                        const text = await res.text();
-                        if (text && text.length > 30) return text;
-                    }
-                } catch(e) { continue; }
-            }
-            throw new Error("Gagal menyedot database melalui seluruh proxy.");
+            return unwanted.some(word => lower.includes(word));
         }
 
-        // 1. AUTO SCANNER GLOBAL (Bebas blokir, termasuk 18+)
-        async function startAutoScanner() {
+        function parseM3UText(text, maxLimit = 50000, keywordFilter = "") {
+            const lines = text.split(/\r?\n/);
+            let currentMeta = "";
+            let addedCount = 0;
+
+            for (let line of lines) {
+                line = line.trim();
+                if (!line) continue;
+                if (line.startsWith('#EXTINF:')) {
+                    currentMeta = line;
+                } else if (line.startsWith('http')) {
+                    if (currentMeta) {
+                        if (!isUnwantedChannel(currentMeta)) {
+                            let matchKeyword = true;
+                            if (keywordFilter) {
+                                const kw = keywordFilter.toLowerCase();
+                                matchKeyword = currentMeta.toLowerCase().includes(kw) || line.toLowerCase().includes(kw);
+                            }
+
+                            if (matchKeyword) {
+                                if (!dbAll.some(existing => existing.url === line)) {
+                                    dbAll.push({
+                                            extinf: currentMeta,
+                                            url: line,
+                                            isLive: null
+                                    });
+                                    addedCount++;
+                                }
+                            }
+                        }
+                    }
+                    currentMeta = "";
+                }
+                if (dbAll.length >= maxLimit || addedCount >= maxLimit) break;
+            }
+        }
+
+        // 1. AUTO KEYWORD SCANNER
+        async function startKeywordScanner() {
+            const keyword = document.getElementById('keywordInput').value.trim();
+            if (!keyword) return alert("Masukkan kata kunci pencarian channel terlebih dahulu!");
+            if (isRunning) return;
+
+            isRunning = true;
+            dbAll = [];
+            document.getElementById('btnKeywordScan').classList.add('opacity-50');
+            document.getElementById('sysLog').innerHTML = '';
+            
+            logSys(`Memulai Auto Scan berdasarkan kata kunci: "${keyword}"...`);
+            updateUI("Scanning Keyword...", 20);
+
+            try {
+                const endpoints = [
+                    GIST_URL,
+                    'https://iptv-org.github.io/iptv/index.m3u',
+                    'https://iptv-org.github.io/iptv/index.category.m3u',
+                    'https://iptv-org.github.io/iptv/categories/xxx.m3u'
+                ];
+
+                for(let i = 0; i < endpoints.length; i++) {
+                    try {
+                        const res = await fetch(endpoints[i]);
+                        if (res.ok) {
+                            const text = await res.text();
+                            parseM3UText(text, 30000, keyword);
+                            logSys(`✅ Sumber ${i+1} berhasil dipindai.`);
+                        }
+                    } catch(err) {
+                        logSys(`⚠️ Sumber ${i+1} dilewati.`);
+                    }
+                    updateUI(`Scanning Source ${i+1}...`, 25 + (20 * i));
+                }
+
+                logSys(`Pencarian Selesai! Ditemukan ${dbAll.length} channel aktif untuk keyword "${keyword}".`);
+                updateUI("Standby", 100);
+                renderOutput();
+
+            } catch (e) {
+                logSys(`Fatal Error: ${e.message}`);
+                updateUI("Error", 0);
+            }
+            isRunning = false;
+            document.getElementById('btnKeywordScan').classList.remove('opacity-50');
+        }
+
+        // 2. GLOBAL OMNI SCANNER + PERMANENT GIST AUTO SYNC
+        async function startAutoScannerWithGist() {
             if (isRunning) return;
             isRunning = true;
             dbAll = [];
             document.getElementById('btnScan').classList.add('opacity-50');
             document.getElementById('sysLog').innerHTML = '';
             
-            logSys("Mengaktifkan CORS Injector & Multi-Proxy Crawler...");
-            updateUI("Connecting Global DB...", 15);
-
-            const endpoints = [
-                'https://iptv-org.github.io/iptv/index.country.m3u',
-                'https://iptv-org.github.io/iptv/categories/xxx.m3u' // 18+ Unrestricted stream category
-            ];
+            logSys("Memulai Sinkronisasi GitHub Gist & Global Omni-Scanner...");
+            updateUI("Mengambil Data Gist...", 20);
 
             try {
-                let rawCombine = "";
-                for(let i=0; i<endpoints.length; i++) {
+                try {
+                    const gistRes = await fetch(GIST_URL);
+                    if (gistRes.ok) {
+                        const gistText = await gistRes.text();
+                        parseM3UText(gistText, 20000);
+                        logSys("✅ Data dari Gist Permanen berhasil dimuat otomatis.");
+                    }
+                } catch(e) {
+                    logSys("⚠️ Gist Gagal ditarik, melanjutkan ke Global Index...");
+                }
+
+                updateUI("Mengambil Global Scanner...", 50);
+
+                const endpoints = [
+                    'https://iptv-org.github.io/iptv/index.m3u',
+                    'https://iptv-org.github.io/iptv/index.category.m3u',
+                    'https://iptv-org.github.io/iptv/categories/xxx.m3u'
+                ];
+
+                for(let i = 0; i < endpoints.length; i++) {
                     try {
-                        const text = await fetchRobust(endpoints[i]);
-                        rawCombine += text + "\n";
-                        logSys(`Segment ${i+1} berhasil ditarik.`);
+                        const res = await fetch(endpoints[i]);
+                        if (res.ok) {
+                            const text = await res.text();
+                            parseM3UText(text, 30000);
+                            logSys(`✅ Global Endpoint ${i+1} berhasil diproses.`);
+                        }
                     } catch(err) {
-                        logSys(`Peringatan: Segment ${i+1} dilewati.`);
+                        logSys(`⚠️ Endpoint ${i+1} dilewati.`);
                     }
-                    updateUI(`Downloading Segment ${i+1}...`, 20 + (35 * (i+1)));
+                    updateUI(`Scanning Index ${i+1}...`, 60 + (15 * i));
                 }
 
-                if (!rawCombine.trim()) {
-                    // Fallback cadangan instan agar aplikasi tetap menampilkan channel valid jika jaringan utama ketat
-                    rawCombine = `#EXTINF:-1,Global News HD\nhttps://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8\n#EXTINF:-1,Adult Unrestricted 18+\nhttps://sample-videos.com/video123/m3u8/hls-sample-1mb.m3u8`;
-                }
-
-                const lines = rawCombine.split(/\r?\n/);
-                let currentMeta = "";
-                for (let line of lines) {
-                    line = line.trim();
-                    if (!line) continue;
-                    if (line.startsWith('#EXTINF:')) currentMeta = line;
-                    else if (line.startsWith('http')) {
-                        dbAll.push({
-                            extinf: currentMeta || `#EXTINF:-1,Global Unrestricted Channel`,
-                            url: line,
-                            isLive: null
-                        });
-                        currentMeta = "";
-                    }
-                }
-                
-                logSys(`Auto-Scanner Selesai. Total terkumpul: ${dbAll.length} saluran.`);
+                logSys(`Omni-Scanner Selesai! Total Terkumpul: ${dbAll.length} Channel Bersih.`);
                 updateUI("Standby", 100);
                 renderOutput();
 
@@ -275,7 +384,37 @@
             document.getElementById('btnScan').classList.remove('opacity-50');
         }
 
-        // 2. HAPUS DUPLIKAT (Otomatis hapus link sama di app & database)
+        // 3. IMPORT FILE LOKAL
+        function importLocalFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            logSys(`Membaca file lokal: ${file.name}...`);
+            reader.onload = function(e) {
+                const text = e.target.result;
+                parseM3UText(text, 50000);
+                logSys(`✅ Berhasil mengimpor file lokal. Total database: ${dbAll.length} channel.`);
+                updateUI("Standby", 100);
+                renderOutput();
+                alert(`Berhasil memuat ${dbAll.length} saluran bersih dari perangkat lokal!`);
+            };
+            reader.readAsText(file);
+        }
+
+        // 4. HAPUS SEMUA CHANNEL
+        function deleteAllChannels() {
+            if (dbAll.length === 0) return alert("Database sudah kosong.");
+            if (confirm("Apakah Anda yakin ingin menghapus SELURUH channel di aplikasi?")) {
+                dbAll = [];
+                logSys("Semua channel telah dihapus dari memori.");
+                updateUI("Standby", 100);
+                renderOutput();
+                alert("Semua channel berhasil dibersihkan.");
+            }
+        }
+
+        // 5. HAPUS DUPLIKAT
         function removeDuplicates() {
             if (dbAll.length === 0) return alert("Database kosong.");
             const before = dbAll.length;
@@ -283,14 +422,13 @@
             dbAll.forEach(c => map.set(c.url, c));
             dbAll = Array.from(map.values());
             const removed = before - dbAll.length;
-            
             logSys(`Pembersihan Duplikat: ${removed} channel ganda dihapus.`);
             updateUI("Standby", 100);
             renderOutput();
             alert(`${removed} saluran duplikat berhasil dihapus.`);
         }
 
-        // 3. AUTO-CHECKER (Otomatis pisahkan aktif/mati dan hapus dari aplikasi & database)
+        // 6. HIGH-ACCURACY AUTO CHECKER
         async function startAutoChecker() {
             if (isRunning) return;
             if (dbAll.length === 0) return alert("Jalankan Auto-Scanner terlebih dahulu.");
@@ -298,9 +436,9 @@
             isRunning = true;
             const btn = document.getElementById('btnCheck');
             btn.classList.add('opacity-50');
-            logSys("Menjalankan Auto-Checker. Memisahkan channel aktif & menghapus channel mati...");
+            logSys("Menjalankan High-Accuracy Auto-Checker (Menghapus Link Mati)...");
 
-            const CONCURRENCY = 15;
+            const CONCURRENCY = 20;
             let idx = 0;
             let activeWorkers = 0;
 
@@ -311,12 +449,21 @@
                         const i = idx++;
                         activeWorkers++;
                         
-                        fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(dbAll[i].url)}`, { method: 'HEAD' })
-                        .then(r => { dbAll[i].isLive = r.ok; })
-                        .catch(() => { dbAll[i].isLive = false; })
+                        const controller = new AbortController();
+                        const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+                        fetch(dbAll[i].url, { method: 'GET', headers: { Range: 'bytes=0-256' }, signal: controller.signal, mode: 'no-cors' })
+                        .then(() => {
+                            clearTimeout(timeoutId);
+                            dbAll[i].isLive = true;
+                        })
+                        .catch(() => {
+                            clearTimeout(timeoutId);
+                            dbAll[i].isLive = false;
+                        })
                         .finally(() => {
                             activeWorkers--;
-                            updateUI("Validating...", Math.round((idx / dbAll.length) * 100));
+                            updateUI("Validating High-Acc...", Math.round((idx / dbAll.length) * 100));
                             next();
                         });
                     }
@@ -324,63 +471,90 @@
                 next();
             });
 
-            // Hapus otomatis channel yang mati (isLive === false) dari aplikasi dan memori
             const deadCount = dbAll.filter(c => c.isLive === false).length;
             dbAll = dbAll.filter(c => c.isLive !== false);
-            
-            logSys(`Auto-Checker selesai. ${deadCount} channel mati dibersihkan.`);
+            logSys(`Auto-Checker Selesai. ${deadCount} channel mati dibersihkan permanen.`);
             updateUI("Standby", 100);
             renderOutput();
-            
             isRunning = false;
             btn.classList.remove('opacity-50');
-            alert(`Checker Selesai! ${deadCount} channel mati dihapus permanen.`);
+            alert(`Pemeriksaan Selesai! ${deadCount} channel mati dibuang, menyisakan ${dbAll.length} channel aktif.`);
         }
 
-        // 4. DOWNLOAD M3U (Seluruh channel aktif)
+        // 7. DOWNLOAD M3U
         function downloadActive() {
             if (dbAll.length === 0) return alert("Database kosong.");
             let out = "#EXTM3U\n\n";
             dbAll.forEach(c => { out += `${c.extinf}\n${c.url}\n\n`; });
-
             const blob = new Blob([out], { type: 'audio/x-mpegurl' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'GEMA_MUSIC_Active_Database.m3u';
+            a.download = 'GEMA_MUSIC_Filtered_50K_Database.m3u';
             a.click();
             URL.revokeObjectURL(url);
         }
 
-        // 5. CLOUDFLARE R2 SYNC
-        async function syncToDatabase() {
-            const endpoint = document.getElementById('r2Url').value.trim();
-            const token = document.getElementById('r2Token').value.trim();
+        // 8. DIRECT GITHUB SYNC & RAW LINK GENERATOR
+        async function saveDirectToGitHub() {
+            const token = document.getElementById('ghToken').value.trim();
+            const path = document.getElementById('ghPath').value.trim() || 'master.m3u';
+            const username = 'gemamusic5-sys';
+            const repo = 'omni-iptv-engine';
 
-            if (!endpoint || !token) return alert("Masukkan URL Worker Cloudflare R2 dan Token Auth Anda!");
-            if (dbAll.length === 0) return alert("Database kosong.");
+            if (!token) return alert("Masukkan GitHub Personal Access Token (PAT) Anda!");
+            if (dbAll.length === 0) return alert("Database kosong. Jalankan scan atau import terlebih dahulu.");
 
-            logSys(`Menyinkronkan database ke Cloudflare R2...`);
+            logSys("Menghubungkan ke GitHub API untuk menyimpan database...");
+            
             let out = "#EXTM3U\n\n";
             dbAll.forEach(c => { out += `${c.extinf}\n${c.url}\n\n`; });
 
+            // Encode content to Base64 (UTF-8 safe)
+            const base64Content = btoa(unescape(encodeURIComponent(out)));
+            const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${path}`;
+
             try {
-                const res = await fetch(endpoint, {
+                // Cek apakah file sudah ada untuk mendapatkan SHA-nya
+                let sha = null;
+                const getRes = await fetch(apiUrl, {
+                    headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
+                });
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                }
+
+                // Kirim data PUT ke GitHub API
+                const putBody = {
+                    message: "Update Master IPTV Database via Omni-V20 Web Engine",
+                    content: base64Content,
+                    branch: "main"
+                };
+                if (sha) putBody.sha = sha;
+
+                const putRes = await fetch(apiUrl, {
                     method: 'PUT',
-                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'text/plain' },
-                    body: out
+                    headers: { 
+                        'Authorization': `Bearer ${token}`, 
+                        'Accept': 'application/vnd.github+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(putBody)
                 });
 
-                if (res.ok) {
-                    logSys("Sinkronisasi Cloudflare R2 Berhasil!");
-                    alert("Database berhasil diperbarui di Cloudflare R2!");
+                if (putRes.ok) {
+                    const rawUrl = `https://raw.githubusercontent.com/${username}/${repo}/main/${path}`;
+                    logSys("Berhasil menyimpan database langsung ke GitHub!");
+                    alert(`SUKSES! Database berhasil diunggah ke GitHub.\n\nLink Raw Permanen Anda:\n${rawUrl}`);
+                    prompt("Salin Link Raw IPTV Anda di bawah ini:", rawUrl);
                 } else {
-                    logSys("Gagal sinkronisasi ke R2.");
-                    alert("Gagal sinkronisasi. Periksa kembali Endpoint & Token Anda.");
+                    const errJson = await putRes.json();
+                    throw new Error(errJson.message || "Gagal melakukan commit ke GitHub.");
                 }
             } catch (e) {
-                logSys(`Error R2 Sync: Koneksi ditolak CORS.`);
-                alert("Gagal terhubung ke Cloudflare R2 Worker.");
+                logSys(`Error GitHub Sync: ${e.message}`);
+                alert(`Gagal menyimpan ke GitHub: ${e.message}`);
             }
         }
     </script>
