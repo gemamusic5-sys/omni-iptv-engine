@@ -218,15 +218,15 @@
             document.getElementById('outputDB').value = out;
         }
 
-        // 1. AUTO SCANNER
+        // 1. AUTO SCANNER ENGINE (Direct Fast Fetch)
         async function startAutoScanner() {
             if (isRunning) return;
             isRunning = true;
             dbAll = [];
-            document.getElementById('btnScan').classList.add('opacity-50');
+            document.getElementById('btnScan').classList.add('opacity-50', 'cursor-not-allowed');
             document.getElementById('sysLog').innerHTML = '';
             
-            logSys("Memicu CORS Injector & Global Crawler...");
+            logSys("Memicu Direct Global Crawler (Tanpa Proxy)...");
             updateUI("Fetching Global DB...", 10);
 
             const endpoints = [
@@ -237,12 +237,22 @@
             try {
                 let rawCombine = "";
                 for(let i=0; i<endpoints.length; i++) {
-                    const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(endpoints[i])}`;
-                    const res = await fetch(proxy);
-                    if(res.ok) rawCombine += await res.text() + "\n";
+                    logSys(`Mendownload Database ${i+1}... (Mohon tunggu, file sangat besar)`);
+                    
+                    // Tarik langsung tanpa proxy untuk kecepatan maksimal & anti-error
+                    const res = await fetch(endpoints[i]);
+                    if(res.ok) {
+                        rawCombine += await res.text() + "\n";
+                        logSys(`✅ Database ${i+1} berhasil disedot!`);
+                    } else {
+                        logSys(`❌ Gagal menarik Database ${i+1}`, true);
+                    }
                     updateUI(`Downloading Segment ${i+1}...`, 10 + (40 * (i+1)));
                 }
 
+                if (!rawCombine.trim()) throw new Error("Semua sumber kosong/gagal ditarik.");
+
+                logSys("Memproses & merakit puluhan ribu saluran...");
                 const lines = rawCombine.split(/\r?\n/);
                 let currentMeta = "";
                 for (let line of lines) {
@@ -259,16 +269,16 @@
                     }
                 }
                 
-                logSys(`Auto-Scanner Selesai. Ditarik ${dbAll.length} saluran.`);
+                logSys(`Auto-Scanner Selesai. Ditarik ${dbAll.length.toLocaleString()} saluran.`);
                 updateUI("Standby", 100);
                 renderOutput();
 
             } catch (e) {
-                logSys(`Error: Gagal menyedot database. Cek jaringan.`);
+                logSys(`Error Fatal: ${e.message}`);
                 updateUI("Error", 0);
             }
             isRunning = false;
-            document.getElementById('btnScan').classList.remove('opacity-50');
+            document.getElementById('btnScan').classList.remove('opacity-50', 'cursor-not-allowed');
         }
 
         // 2. HAPUS DUPLIKAT
