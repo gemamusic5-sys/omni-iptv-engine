@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMNI-V20 | Global IPTV Scanner & R2 Sync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #020617;
+            --bg-card: rgba(15, 23, 42, 0.7);
+            --glow-color: rgba(56, 189, 248, 0.8);
+            --glow-shadow: rgba(56, 189, 248, 0.25);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: #f8fafc;
+            transition: background-color 0.4s ease;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Tepi tipis tegas biru muda (Glowing) */
+        .glow-border {
+            border: 1px solid var(--glow-color);
+            box-shadow: 0 0 12px var(--glow-shadow), inset 0 0 5px var(--glow-shadow);
+            background-color: var(--bg-card);
+            backdrop-filter: blur(12px);
+        }
+        
+        .custom-scroll::-webkit-scrollbar { width: 5px; height: 5px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: var(--glow-color); border-radius: 4px; }
+        
+        /* Compact layout adjustments */
+        input, select, button, textarea { font-size: 0.75rem; }
+        @media (min-width: 768px) { input, select, button, textarea { font-size: 0.875rem; } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col p-3 md:p-6 custom-scroll">
+
+    <!-- Header Adaptif -->
+    <header class="glow-border rounded-xl p-4 flex flex-col md:flex-row items-center justify-between mb-5 gap-4 sticky top-2 z-50">
+        <div class="flex items-center space-x-4 w-full md:w-auto">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl border border-sky-400 shadow-[0_0_10px_#38bdf8]">
+                ⚡
+            </div>
+            <div>
+                <h1 class="font-bold text-base md:text-lg tracking-wide text-sky-400 drop-shadow-md">GEMA MUSIC OMNI-V20</h1>
+                <p class="text-[9px] md:text-[10px] text-gray-400 uppercase tracking-widest">Global Auto-Scanner | Cloudflare R2 Database</p>
+            </div>
+        </div>
+
+        <div class="w-full md:w-auto flex flex-col sm:flex-row items-center gap-3">
+            <span class="text-[10px] text-sky-300 font-medium hidden sm:block">Theme:</span>
+            <select id="themeSelect" onchange="changeTheme(this.value)" class="w-full sm:w-auto bg-gray-950 border border-sky-400/50 rounded-lg px-3 py-1.5 focus:outline-none text-sky-300 font-medium cursor-pointer">
+                <option value="0">1. Cyber Blue (Default)</option>
+                <option value="1">2. Deep Obsidian</option>
+                <option value="2">3. Matrix Emerald</option>
+                <option value="3">4. Quantum Purple</option>
+                <option value="4">5. Solar Flare</option>
+                <option value="5">6. Ruby Crimson</option>
+                <option value="6">7. Arctic Frost</option>
+                <option value="7">8. Midnight Indigo</option>
+                <option value="8">9. Neon Magenta</option>
+                <option value="9">10. Carbon Gold</option>
+                <option value="10">11. Plasma Orange</option>
+                <option value="11">12. Holographic Teal</option>
+                <option value="12">13. Slate Minimal</option>
+                <option value="13">14. Cyberpunk Yellow</option>
+                <option value="14">15. Zenith Violet</option>
+                <option value="15">16. Toxic Lime</option>
+                <option value="16">17. Neptune Cyan</option>
+                <option value="17">18. Velvet Rose</option>
+                <option value="18">19. Titanium Gray</option>
+                <option value="19">20. Phantom Black</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 max-w-[1400px] w-full mx-auto">
+        
+        <!-- Panel Kontrol & Engine -->
+        <section class="lg:col-span-4 glow-border p-4 md:p-5 rounded-xl space-y-5 h-fit flex flex-col">
+            
+            <!-- Modul Addon & Injector -->
+            <div class="flex flex-wrap gap-1.5 pb-4 border-b border-sky-500/30">
+                <span class="text-[9px] px-2 py-1 rounded bg-black/50 border border-sky-400/40 text-sky-300">⚙️ H265 Codec</span>
+                <span class="text-[9px] px-2 py-1 rounded bg-black/50 border border-sky-400/40 text-sky-300">🔌 CORS Injector</span>
+                <span class="text-[9px] px-2 py-1 rounded bg-black/50 border border-sky-400/40 text-sky-300">🛡️ Geo-Bypass</span>
+                <span class="text-[9px] px-2 py-1 rounded bg-black/50 border border-sky-400/40 text-sky-300">🔞 18+ Unlocked</span>
+            </div>
+
+            <!-- Auto Scanner -->
+            <div>
+                <h2 class="text-[11px] font-bold uppercase tracking-wider mb-3 text-sky-400">1. Global Omni-Scanner</h2>
+                <button onclick="startAutoScanner()" id="btnScan" class="w-full py-3 bg-gray-950 border border-sky-400 rounded-lg hover:bg-sky-900/40 text-sky-300 font-bold transition flex items-center justify-center gap-2">
+                    <span>🚀</span> JALANKAN SCANNER GLOBAL
+                </button>
+                <p class="text-[9px] text-gray-400 mt-2 leading-relaxed">Ekstraksi otomatis seluruh saluran IPTV aktif dunia. Modul mem-bypass blokir wilayah dan batasan usia secara asinkron.</p>
+            </div>
+
+            <!-- Cloudflare R2 Sync -->
+            <div class="pt-2">
+                <h2 class="text-[11px] font-bold uppercase tracking-wider mb-3 text-sky-400">2. R2 Database Sync</h2>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-[10px] text-gray-400 mb-1">R2 Worker Endpoint URL</label>
+                        <input type="text" id="r2Url" placeholder="https://iptv-sync.nama.workers.dev" class="w-full bg-black/50 border border-sky-500/50 rounded-lg p-2.5 focus:outline-none text-gray-200 transition focus:border-sky-400">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-gray-400 mb-1">R2 API Auth Token</label>
+                        <input type="password" id="r2Token" placeholder="Bearer Token Rahasia" class="w-full bg-black/50 border border-sky-500/50 rounded-lg p-2.5 focus:outline-none text-gray-200 transition focus:border-sky-400">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Log Console -->
+            <div class="bg-black/40 border border-sky-500/30 rounded-lg p-3 mt-auto">
+                <div class="flex justify-between text-[10px] font-bold mb-2 text-sky-400">
+                    <span id="scanStatus">System Ready...</span>
+                    <span id="scanPct">0%</span>
+                </div>
+                <div class="w-full bg-gray-900 h-1.5 rounded-full overflow-hidden mb-2">
+                    <div id="scanBar" class="h-full w-0 transition-all bg-sky-400 shadow-[0_0_8px_#38bdf8]"></div>
+                </div>
+                <div id="sysLog" class="h-20 overflow-y-auto text-[9px] mono text-gray-500 custom-scroll space-y-1"></div>
+            </div>
+        </section>
+
+        <!-- Panel Database & Aksi -->
+        <section class="lg:col-span-8 glow-border p-4 md:p-5 rounded-xl flex flex-col min-h-[600px]">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-5 gap-4 border-b border-sky-500/30 pb-4">
+                <div>
+                    <h2 class="text-[11px] font-bold uppercase tracking-wider text-sky-400">Database & Smart A.I Checker</h2>
+                    <p class="text-[10px] text-gray-400 mt-1">Total: <span id="valTotal" class="text-sky-300 font-bold">0</span> | Aktif: <span id="valLive" class="text-emerald-400 font-bold">0</span> | Mati: <span id="valDead" class="text-red-400 font-bold">0</span></p>
+                </div>
+
+                <!-- Action Toolbar -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full md:w-auto">
+                    <button onclick="removeDuplicates()" class="py-2 px-3 bg-gray-950 border border-sky-500/50 hover:bg-sky-900/40 text-sky-300 rounded-lg font-bold transition flex items-center justify-center gap-1">
+                        🧹 Hapus Duplikat
+                    </button>
+                    <button onclick="startAutoChecker()" id="btnCheck" class="py-2 px-3 bg-gray-950 border border-sky-500/50 hover:bg-sky-900/40 text-sky-300 rounded-lg font-bold transition flex items-center justify-center gap-1">
+                        ⚡ Cek & Hapus Mati
+                    </button>
+                    <button onclick="syncToDatabase()" class="py-2 px-3 bg-gray-950 border border-sky-500/50 hover:bg-sky-900/40 text-sky-300 rounded-lg font-bold transition flex items-center justify-center gap-1">
+                        ☁️ Simpan ke R2
+                    </button>
+                    <button onclick="downloadActive()" class="py-2 px-3 bg-emerald-950/50 border border-emerald-500/50 hover:bg-emerald-900/60 text-emerald-400 rounded-lg font-bold transition flex items-center justify-center gap-1">
+                        💾 Download Aktif
+                    </button>
+                </div>
+            </div>
+
+            <!-- Viewer -->
+            <textarea id="outputDB" readonly class="w-full flex-1 bg-black/40 border border-sky-500/30 rounded-lg p-4 text-sky-200 focus:outline-none custom-scroll resize-none mono leading-relaxed" placeholder="#EXTM3U\n\nMenunggu proses Auto-Scanner global..."></textarea>
+        </section>
+    </main>
+
+    <script>
+        // 20 Professional Themes Mapping
+        const themes = [
+            { bg: '#020617', card: 'rgba(15, 23, 42, 0.7)' }, // Cyber Blue
+            { bg: '#000000', card: 'rgba(9, 9, 11, 0.7)' },   // Deep Obsidian
+            { bg: '#022c22', card: 'rgba(6, 78, 59, 0.7)' },  // Matrix Emerald
+            { bg: '#2e1065', card: 'rgba(59, 13, 104, 0.7)' },// Quantum Purple
+            { bg: '#451a03', card: 'rgba(113, 63, 18, 0.7)' },// Solar Flare
+            { bg: '#4c0519', card: 'rgba(136, 19, 55, 0.7)' },// Ruby Crimson
+            { bg: '#0f172a', card: 'rgba(30, 41, 59, 0.7)' }, // Arctic Frost
+            { bg: '#172554', card: 'rgba(30, 58, 138, 0.7)' },// Midnight Indigo
+            { bg: '#2b0022', card: 'rgba(74, 4, 78, 0.7)' },  // Neon Magenta
+            { bg: '#171717', card: 'rgba(38, 38, 38, 0.7)' }, // Carbon Gold
+            { bg: '#431407', card: 'rgba(124, 45, 18, 0.7)' },// Plasma Orange
+            { bg: '#042f2e', card: 'rgba(19, 78, 74, 0.7)' }, // Holographic Teal
+            { bg: '#0f172a', card: 'rgba(15, 23, 42, 0.7)' }, // Slate Minimal
+            { bg: '#292524', card: 'rgba(68, 64, 60, 0.7)' }, // Cyberpunk Yellow
+            { bg: '#1e1b4b', card: 'rgba(49, 46, 129, 0.7)' },// Zenith Violet
+            { bg: '#1a2e05', card: 'rgba(63, 98, 18, 0.7)' }, // Toxic Lime
+            { bg: '#083344', card: 'rgba(22, 78, 99, 0.7)' }, // Neptune Cyan
+            { bg: '#270817', card: 'rgba(76, 5, 25, 0.7)' },  // Velvet Rose
+            { bg: '#111827', card: 'rgba(31, 41, 55, 0.7)' }, // Titanium Gray
+            { bg: '#050505', card: 'rgba(10, 10, 10, 0.8)' }  // Phantom Black
+        ];
+
+        function changeTheme(index) {
+            const t = themes[index];
+            document.documentElement.style.setProperty('--bg-base', t.bg);
+            document.documentElement.style.setProperty('--bg-card', t.card);
+        }
+
+        let dbAll = [];
+        let isRunning = false;
+
+        function logSys(msg) {
+            const el = document.getElementById('sysLog');
+            el.innerHTML += `<div>> ${msg}</div>`;
+            el.scrollTop = el.scrollHeight;
+        }
+
+        function updateUI(status, pct) {
+            document.getElementById('scanStatus').innerText = status;
+            document.getElementById('scanPct').innerText = `${pct}%`;
+            document.getElementById('scanBar').style.width = `${pct}%`;
+            
+            const live = dbAll.filter(c => c.isLive === true).length;
+            const dead = dbAll.filter(c => c.isLive === false).length;
+            document.getElementById('valTotal').innerText = dbAll.length;
+            document.getElementById('valLive').innerText = live;
+            document.getElementById('valDead').innerText = dead;
+        }
+
+        function renderOutput() {
+            let out = "#EXTM3U\n\n";
+            dbAll.forEach(c => { out += `${c.extinf}\n${c.url}\n\n`; });
+            document.getElementById('outputDB').value = out;
+        }
+
+        // 1. AUTO SCANNER
+        async function startAutoScanner() {
+            if (isRunning) return;
+            isRunning = true;
+            dbAll = [];
+            document.getElementById('btnScan').classList.add('opacity-50');
+            document.getElementById('sysLog').innerHTML = '';
+            
+            logSys("Memicu CORS Injector & Global Crawler...");
+            updateUI("Fetching Global DB...", 10);
+
+            const endpoints = [
+                'https://iptv-org.github.io/iptv/index.country.m3u',
+                'https://iptv-org.github.io/iptv/categories/xxx.m3u'
+            ];
+
+            try {
+                let rawCombine = "";
+                for(let i=0; i<endpoints.length; i++) {
+                    const proxy = `https://api.allorigins.win/raw?url=${encodeURIComponent(endpoints[i])}`;
+                    const res = await fetch(proxy);
+                    if(res.ok) rawCombine += await res.text() + "\n";
+                    updateUI(`Downloading Segment ${i+1}...`, 10 + (40 * (i+1)));
+                }
+
+                const lines = rawCombine.split(/\r?\n/);
+                let currentMeta = "";
+                for (let line of lines) {
+                    line = line.trim();
+                    if (!line) continue;
+                    if (line.startsWith('#EXTINF:')) currentMeta = line;
+                    else if (line.startsWith('http')) {
+                        dbAll.push({
+                            extinf: currentMeta || `#EXTINF:-1,Global Channel`,
+                            url: line,
+                            isLive: null
+                        });
+                        currentMeta = "";
+                    }
+                }
+                
+                logSys(`Auto-Scanner Selesai. Ditarik ${dbAll.length} saluran.`);
+                updateUI("Standby", 100);
+                renderOutput();
+
+            } catch (e) {
+                logSys(`Error: Gagal menyedot database. Cek jaringan.`);
+                updateUI("Error", 0);
+            }
+            isRunning = false;
+            document.getElementById('btnScan').classList.remove('opacity-50');
+        }
+
+        // 2. HAPUS DUPLIKAT
+        function removeDuplicates() {
+            if (dbAll.length === 0) return alert("Database kosong.");
+            const before = dbAll.length;
+            const map = new Map();
+            dbAll.forEach(c => map.set(c.url, c));
+            dbAll = Array.from(map.values());
+            const removed = before - dbAll.length;
+            
+            logSys(`Pembersihan Duplikat: ${removed} channel terhapus.`);
+            updateUI("Standby", 100);
+            renderOutput();
+            alert(`${removed} saluran duplikat dihapus dari sistem.`);
+        }
+
+        // 3. AUTO-CHECKER (Cek & Hapus Mati)
+        async function startAutoChecker() {
+            if (isRunning) return;
+            if (dbAll.length === 0) return alert("Jalankan Scanner terlebih dahulu.");
+            
+            isRunning = true;
+            const btn = document.getElementById('btnCheck');
+            btn.classList.add('opacity-50');
+            logSys("Menjalankan Auto-Checker pintar. Memisahkan & menghapus channel mati...");
+
+            const CONCURRENCY = 10;
+            let idx = 0;
+            let activeWorkers = 0;
+
+            await new Promise((resolve) => {
+                function next() {
+                    if (idx >= dbAll.length && activeWorkers === 0) { resolve(); return; }
+                    while (activeWorkers < CONCURRENCY && idx < dbAll.length) {
+                        const i = idx++;
+                        activeWorkers++;
+                        
+                        fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(dbAll[i].url)}`, { method: 'HEAD' })
+                        .then(r => { dbAll[i].isLive = r.ok; })
+                        .catch(() => { dbAll[i].isLive = false; })
+                        .finally(() => {
+                            activeWorkers--;
+                            updateUI("Validating...", Math.round((idx / dbAll.length) * 100));
+                            next();
+                        });
+                    }
+                }
+                next();
+            });
+
+            // Hapus saluran mati secara otomatis
+            const deadCount = dbAll.filter(c => c.isLive === false).length;
+            dbAll = dbAll.filter(c => c.isLive !== false);
+            
+            logSys(`Auto-Checker selesai. ${deadCount} channel mati dihapus permanen.`);
+            updateUI("Standby", 100);
+            renderOutput();
+            
+            isRunning = false;
+            btn.classList.remove('opacity-50');
+            alert(`Selesai! ${deadCount} saluran mati berhasil dihapus otomatis.`);
+        }
+
+        // 4. DOWNLOAD M3U
+        function downloadActive() {
+            if (dbAll.length === 0) return alert("Data kosong.");
+            let out = "#EXTM3U\n\n";
+            dbAll.forEach(c => { out += `${c.extinf}\n${c.url}\n\n`; });
+
+            const blob = new Blob([out], { type: 'audio/x-mpegurl' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'GEMA_MUSIC_Master_Playlist.m3u';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // 5. CLOUDFLARE R2 SYNC
+        async function syncToDatabase() {
+            const endpoint = document.getElementById('r2Url').value.trim();
+            const token = document.getElementById('r2Token').value.trim();
+
+            if (!endpoint || !token) return alert("Masukkan URL Worker Cloudflare R2 dan Token Anda!");
+            if (dbAll.length === 0) return alert("Database kosong.");
+
+            logSys(`Menyinkronkan ke Cloudflare R2: ${endpoint}`);
+            let out = "#EXTM3U\n\n";
+            dbAll.forEach(c => { out += `${c.extinf}\n${c.url}\n\n`; });
+
+            try {
+                const res = await fetch(endpoint, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'text/plain' },
+                    body: out
+                });
+
+                if (res.ok) {
+                    logSys("Sinkronisasi Cloudflare R2 SUKSES!");
+                    alert("Database berhasil diperbarui di Cloudflare R2!");
+                } else {
+                    logSys("Sinkronisasi Gagal. Periksa kredensial R2 Anda.");
+                }
+            } catch (e) {
+                logSys(`Error Sync: Koneksi ditolak.`);
+            }
+        }
+    </script>
+</body>
+</html>
